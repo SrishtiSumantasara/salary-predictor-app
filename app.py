@@ -1,22 +1,24 @@
-import numpy as np
-import streamlit as st
-
-st.write("NumPy version on Streamlit:", np.__version__)
-
 import streamlit as st
 import pandas as pd
 import joblib
+import numpy as np
 
 # --------------------------------------------------
-# Load trained PIPELINE model
+# MUST BE THE FIRST STREAMLIT COMMAND
 # --------------------------------------------------
-model = joblib.load("best_model.pkl")
-
 st.set_page_config(
     page_title="Employee Salary Classification",
     page_icon="💼",
     layout="centered"
 )
+
+# (Optional debug – remove later)
+st.write("NumPy version on Streamlit:", np.__version__)
+
+# --------------------------------------------------
+# Load trained PIPELINE model
+# --------------------------------------------------
+model = joblib.load("best_model.pkl")
 
 st.title("💼 Employee Salary Classification App")
 st.markdown("Predict whether an employee earns **>50K** or **≤50K** based on details.")
@@ -77,7 +79,7 @@ capital_gain = st.sidebar.number_input("Capital Gain", 0, 100000, 0)
 capital_loss = st.sidebar.number_input("Capital Loss", 0, 5000, 0)
 
 # --------------------------------------------------
-# Input DataFrame (COLUMN NAMES MUST MATCH EXACTLY)
+# Input DataFrame (COLUMN NAMES MUST MATCH TRAINING)
 # --------------------------------------------------
 input_df = pd.DataFrame({
     "age": [age],

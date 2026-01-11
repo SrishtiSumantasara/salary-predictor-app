@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 
 # --------------------------------------------------
-# MUST BE THE FIRST STREAMLIT COMMAND
+# MUST BE FIRST STREAMLIT COMMAND
 # --------------------------------------------------
 st.set_page_config(
     page_title="Employee Salary Classification",
@@ -12,7 +12,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# (Optional debug – remove later)
+# (Optional debug – you can remove later)
 st.write("NumPy version on Streamlit:", np.__version__)
 
 # --------------------------------------------------
@@ -24,7 +24,7 @@ st.title("💼 Employee Salary Classification App")
 st.markdown("Predict whether an employee earns **>50K** or **≤50K** based on details.")
 
 # --------------------------------------------------
-# Sidebar Inputs (MUST match training columns)
+# Sidebar Inputs (MATCH TRAINING FEATURES EXACTLY)
 # --------------------------------------------------
 st.sidebar.header("Input Employee Details")
 
@@ -36,6 +36,15 @@ workclass = st.sidebar.selectbox(
         "Private", "Self-emp-not-inc", "Self-emp-inc",
         "Federal-gov", "Local-gov", "State-gov"
     ]
+)
+
+# 🔹 MISSING FEATURE FIXED
+fnlwgt = st.sidebar.number_input(
+    "Final Weight (fnlwgt)",
+    min_value=10000,
+    max_value=1000000,
+    value=200000,
+    step=1000
 )
 
 marital_status = st.sidebar.selectbox(
@@ -79,21 +88,22 @@ capital_gain = st.sidebar.number_input("Capital Gain", 0, 100000, 0)
 capital_loss = st.sidebar.number_input("Capital Loss", 0, 5000, 0)
 
 # --------------------------------------------------
-# Input DataFrame (COLUMN NAMES MUST MATCH TRAINING)
+# Input DataFrame (EXACT COLUMN NAMES)
 # --------------------------------------------------
 input_df = pd.DataFrame({
     "age": [age],
     "workclass": [workclass],
+    "fnlwgt": [fnlwgt],
     "marital-status": [marital_status],
     "occupation": [occupation],
     "relationship": [relationship],
     "race": [race],
     "gender": [gender],
-    "native-country": [native_country],
-    "educational-num": [educational_num],
-    "hours-per-week": [hours_per_week],
     "capital-gain": [capital_gain],
-    "capital-loss": [capital_loss]
+    "capital-loss": [capital_loss],
+    "hours-per-week": [hours_per_week],
+    "educational-num": [educational_num],
+    "native-country": [native_country]
 })
 
 st.write("### 🔎 Input Data")

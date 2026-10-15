@@ -119,6 +119,7 @@ if st.button("Predict Salary Class"):
         st.success("✅ Prediction: Income **>50K**")
     else:
         st.info("ℹ️ Prediction: Income **≤50K**")
+ # Code documentation and review contribution
 
 # --------------------------------------------------
 # Footer
